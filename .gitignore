@@ -1,0 +1,6 @@
+# Created by .ignore support plugins
+*.iml
+.idea
+target
+out
+logs
