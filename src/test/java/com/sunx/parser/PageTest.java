@@ -32,4 +32,12 @@ public class PageTest {
             System.out.println(line);
         }
     }
+    @Test
+    public void testClean(){
+        String html = "<span>---</span>";
+        Page page = Page.me().bind(html);
+        page.clean("span");
+
+        System.out.println(page.html("body"));
+    }
 }

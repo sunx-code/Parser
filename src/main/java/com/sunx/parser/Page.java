@@ -9,7 +9,6 @@ import org.jsoup.select.Elements;
  *
  */
 public class Page {
-    private String html = null;
     private Document doc = null;
 
     /**
@@ -24,10 +23,8 @@ public class Page {
      */
     public Page bind(String src){
         try {
-            this.html = src;
-
-            if(html != null && html.length() >= 0){
-                doc = Jsoup.parse(html);
+            if(src != null && src.length() >= 0){
+                doc = Jsoup.parse(src);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +231,7 @@ public class Page {
      * @return
      */
     public String html(){
-        return this.html;
+        return doc.html();
     }
 
     /**
@@ -281,6 +278,76 @@ public class Page {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void clean(String cssQuery){
+        try{
+            Elements eles = doc.select(cssQuery);
+            eles.empty();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除标签
+     * @param cssQuery
+     */
+    public void remove(String cssQuery){
+        try{
+            Elements eles = doc.select(cssQuery);
+            eles.remove();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除第index标签
+     * @param cssQuery
+     * @param index
+     */
+    public void remove(String cssQuery,int index){
+        try{
+            Elements eles = doc.select(cssQuery);
+            if(index <0 && index != -1)return;
+            if(index > eles.size())return;
+            eles.get(index).remove();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 给指定的标签添加内容
+     * @param cssQuery
+     * @param html
+     */
+    public void append(String cssQuery,String html){
+        try{
+            Elements eles = doc.select(cssQuery);
+            eles.append(html);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 找到标签后,删除指定标签后再增加
+     * @param cssQuery
+     * @param removeCssQuery
+     * @param html
+     */
+    public void append(String cssQuery,String html,String... removeCssQuery){
+        try{
+            Elements eles = doc.select(cssQuery);
+            for(String removeCss : removeCssQuery){
+                eles.select(removeCss).remove();
+            }
+            eles.append(html);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
