@@ -356,6 +356,20 @@ public class Page {
     }
 
     /**
+     * 修改class的属性值
+     * @param cssQuery
+     * @param value
+     * @return
+     */
+    public Page attr(String cssQuery,String key,String value){
+        //找到对应的标签
+        Elements eles = doc.select(cssQuery);
+        if(eles == null)return this;
+        eles.attr(key,value);
+        return this;
+    }
+
+    /**
      * 判断标签是否已经存在
      * @param cssQuery
      * @return
