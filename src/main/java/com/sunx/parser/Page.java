@@ -280,26 +280,28 @@ public class Page {
         return null;
     }
 
-    public void clean(String cssQuery){
+    public Page clean(String cssQuery){
         try{
             Elements eles = doc.select(cssQuery);
             eles.empty();
         }catch (Exception e){
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
      * 删除标签
      * @param cssQuery
      */
-    public void remove(String cssQuery){
+    public Page remove(String cssQuery){
         try{
             Elements eles = doc.select(cssQuery);
             eles.remove();
         }catch (Exception e){
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
@@ -307,15 +309,16 @@ public class Page {
      * @param cssQuery
      * @param index
      */
-    public void remove(String cssQuery,int index){
+    public Page remove(String cssQuery,int index){
         try{
             Elements eles = doc.select(cssQuery);
-            if(index <0 && index != -1)return;
-            if(index > eles.size())return;
+            if(index <0 && index != -1)return this;
+            if(index > eles.size())return this;
             eles.get(index).remove();
         }catch (Exception e){
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
@@ -323,13 +326,14 @@ public class Page {
      * @param cssQuery
      * @param html
      */
-    public void append(String cssQuery,String html){
+    public Page append(String cssQuery,String html){
         try{
             Elements eles = doc.select(cssQuery);
             eles.append(html);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
@@ -338,7 +342,7 @@ public class Page {
      * @param removeCssQuery
      * @param html
      */
-    public void append(String cssQuery,String html,String... removeCssQuery){
+    public Page append(String cssQuery,String html,String... removeCssQuery){
         try{
             Elements eles = doc.select(cssQuery);
             for(String removeCss : removeCssQuery){
@@ -348,6 +352,7 @@ public class Page {
         }catch (Exception e){
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
