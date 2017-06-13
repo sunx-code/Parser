@@ -370,6 +370,19 @@ public class Page {
     }
 
     /**
+     * 替换期内的内容
+     * @param cssQuery
+     * @param html
+     * @return
+     */
+    public Page replace(String cssQuery,String html){
+        Elements eles = doc.select(cssQuery);
+        if(eles == null)return this;
+        eles.html(html);
+        return this;
+    }
+
+    /**
      * 判断标签是否已经存在
      * @param cssQuery
      * @return
